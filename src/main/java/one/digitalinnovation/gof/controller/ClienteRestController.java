@@ -14,6 +14,9 @@ import org.springframework.web.bind.annotation.RestController;
 import one.digitalinnovation.gof.model.Cliente;
 import one.digitalinnovation.gof.service.ClienteService;
 
+import java.util.Arrays;
+import java.util.List;
+
 /**
  * Esse {@link RestController} representa nossa <b>Facade</b>, pois abstrai toda
  * a complexidade de integrações (Banco de Dados H2 e API do ViaCEP) em uma
@@ -40,8 +43,14 @@ public class ClienteRestController {
 
 	@PostMapping
 	public ResponseEntity<Cliente> inserir(@RequestBody Cliente cliente) {
-		clienteService.inserir(cliente);
+		clienteService.inserir(Arrays.asList(cliente));
 		return ResponseEntity.ok(cliente);
+	}
+
+	@PostMapping("/multiple")
+	public ResponseEntity<List<Cliente>> inserirVarios(@RequestBody List<Cliente> clientes) {
+		clienteService.inserir(clientes);
+		return ResponseEntity.ok(clientes);
 	}
 
 	@PutMapping("/{id}")

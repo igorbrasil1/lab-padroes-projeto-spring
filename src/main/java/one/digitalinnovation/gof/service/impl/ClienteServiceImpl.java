@@ -1,5 +1,6 @@
 package one.digitalinnovation.gof.service.impl;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,8 +48,8 @@ public class ClienteServiceImpl implements ClienteService {
 	}
 
 	@Override
-	public void inserir(Cliente cliente) {
-		salvarClienteComCep(cliente);
+	public void inserir(List<Cliente> clientes) {
+		salvarClientesComCep(clientes);
 	}
 
 	@Override
@@ -64,6 +65,10 @@ public class ClienteServiceImpl implements ClienteService {
 	public void deletar(Long id) {
 		// Deletar Cliente por ID.
 		clienteRepository.deleteById(id);
+	}
+
+	private void salvarClientesComCep(List<Cliente> clientes) {
+		clientes.stream().forEach(o -> salvarClienteComCep(o));
 	}
 
 	private void salvarClienteComCep(Cliente cliente) {
